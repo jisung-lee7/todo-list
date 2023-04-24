@@ -6,11 +6,13 @@
       1. 기본적으로 Todo 를 만들 경우 Archive 가 되어있지 않다.
    2. Archive 가 되어 있을 경우
       1. Delete 버튼과 Unarchive 버튼을 보여준다.
-      2. Todo text 를 opacity: 0.7 로 바꿔준다.
+      2. Todo text 를 opacity: 0.3 로 바꿔준다.
 
 2. Add Edit feature
 
-   1. Edit 버튼을 누르면, Todo text 를 input 으로 바꿔준다.
+   1. Edit 버튼을 누르면
+      1. Todo text 를 input 으로 바꿔준다.
+      2. Cancel 버튼을 보여준다. 이 버튼을 누르면, Todo text 를 변경하지 않고 원래대로 돌아간다.
    2. input 에서 Enter 를 누르면, Todo text 를 변경한다.
    3. input 에서 Escape 를 누르면, Todo text 를 변경하지 않고 원래대로 돌아간다.
    4. Edit 하는 도중에는
