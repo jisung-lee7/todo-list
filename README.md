@@ -16,4 +16,5 @@
    4. Edit 하는 도중에는
       1. Edit 버튼을 Confirm으로 바꿔주고, Confirm 버튼을 누르면 Todo text 를 변경한다.
       2. Confirm 버튼 이외의 모든 버튼은 감춰준다.
+      3. Add input text box 와 add 버튼을 disabled 시켜준다.
    5. 한번에 한개의 Todo 만 Edit 할 수 있다.
