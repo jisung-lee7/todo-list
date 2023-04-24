@@ -1,0 +1,19 @@
+name: Test if it's okay to merge
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  supervise:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - run: npm install
+
+      - run: npm run test
