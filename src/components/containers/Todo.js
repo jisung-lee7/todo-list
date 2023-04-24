@@ -15,7 +15,12 @@ function Todo() {
     <div>
       <TodoTop addTodo={addTodo} />
       {todos.map((todo) => (
-        <TodoItem key={todo.id} text={todo.text} deleteTodo={deleteTodo} />
+        <TodoItem
+          key={todo.id}
+          id={todo.id}
+          text={todo.text}
+          deleteTodo={deleteTodo}
+        />
       ))}
     </div>
   );

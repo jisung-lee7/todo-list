@@ -1,10 +1,10 @@
-function TodoItem({ text, deleteTodo }) {
+function TodoItem({ id, text, deleteTodo }) {
   return (
     <div style={{ display: "flex", width: "100%" }}>
       <div>{text}</div>
       <button
         onClick={() => {
-          deleteTodo();
+          deleteTodo(id);
         }}
       >
         delete
