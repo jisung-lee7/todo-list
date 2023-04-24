@@ -13,10 +13,8 @@
    1. Edit 버튼을 누르면
       1. Todo text 를 input 으로 바꿔준다.
       2. Cancel 버튼을 보여준다. 이 버튼을 누르면, Todo text 를 변경하지 않고 원래대로 돌아간다.
-   2. input 에서 Enter 를 누르면, Todo text 를 변경한다.
-   3. input 에서 Escape 를 누르면, Todo text 를 변경하지 않고 원래대로 돌아간다.
-   4. Edit 하는 도중에는
+   2. Edit 하는 도중에는
       1. Edit 버튼을 Confirm으로 바꿔주고, Confirm 버튼을 누르면 Todo text 를 변경한다.
       2. Confirm 버튼 이외의 모든 버튼은 감춰준다.
       3. Add input text box 와 add 버튼을 disabled 시켜준다.
-   5. 한번에 한개의 Todo 만 Edit 할 수 있다.
+   3. 한번에 한개의 Todo 만 Edit 할 수 있다.
