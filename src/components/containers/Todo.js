@@ -1,15 +1,15 @@
-import { useState } from "react";
-import TodoItem from "../presentations/TodoItem";
-import TodoTop from "../presentations/TodoTop";
+import { useState } from 'react'
+import TodoItem from '../presentations/TodoItem'
+import TodoTop from '../presentations/TodoTop'
 
 function Todo() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState([])
   const addTodo = (todo) => {
-    setTodos([...todos, todo]);
-  };
+    setTodos([...todos, todo])
+  }
   const deleteTodo = (id) => {
-    setTodos((prev) => prev.filter((todo) => todo.id !== id));
-  };
+    setTodos((prev) => prev.filter((todo) => todo.id !== id))
+  }
 
   return (
     <div>
@@ -23,7 +23,7 @@ function Todo() {
         />
       ))}
     </div>
-  );
+  )
 }
 
-export default Todo;
+export default Todo
