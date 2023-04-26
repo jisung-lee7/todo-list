@@ -1,6 +1,6 @@
 1. Add Keyboard feature
 
-   1. Todo Item 이 Edit 중일 때,
+   1. Todo Item 이 Edit 중일 때, 그리고 Input box 에 Focus 되어 있을 때,
       1. Enter 를 누르면, Confirm 버튼을 누른 것과 같은 효과를 낸다.
       2. Esc 를 누르면, Cancel 버튼을 누른 것과 같은 효과를 낸다.
 
