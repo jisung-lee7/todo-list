@@ -7,10 +7,10 @@
 2. Add Activate feature
 
    1. Todo Item 앞에 Radio 버튼을 추가한다.
-   2. Radio 버튼을 누르면, Todo Item 의 완료 여부를 토글한다.
-   3. Radio 버튼이 선택 되었다는 의미는, Todo Item 이 Active 상태라는 의미이다.
-   4. Radio 버튼이 선택 되지 않았다는 의미는, Todo Item 이 Inactive 상태라는 의미이다.
+   2. Checkbox 를 누르면, Todo Item 의 완료 여부를 토글한다.
+   3. Checkbox 가 선택 되었다는 의미는, Todo Item 이 Inactive 상태라는 의미이다.
       1. 이때 텍스트 위에 취소선을 긋는다.
+   4. Checkbox 가 선택 되지 않았다는 의미는, Todo Item 이 Active 상태라는 의미이다.
 
 3. Add Filter feature
 
