@@ -6,7 +6,7 @@
 
 2. Add Activate feature
 
-   1. Todo Item 앞에 Radio 버튼을 추가한다.
+   1. Todo Item 앞에 Checkbox 버튼을 추가한다.
    2. Checkbox 를 누르면, Todo Item 의 완료 여부를 토글한다.
    3. Checkbox 가 선택 되었다는 의미는, Todo Item 이 Inactive 상태라는 의미이다.
       1. 이때 텍스트 위에 취소선을 긋는다.
@@ -15,8 +15,8 @@
 3. Add Filter feature
 
    1. Filter 기능은 두가지가 있다. 하나는 Archive 된 Todo 만 보여주는 것이고, 다른 하나는 Active 한 Todo 만 보여주는 것이다.
-   2. Filter 기능은 Radio 버튼을 눌러서 선택할 수 있다. 아래 예시를 참고한다.
-      1. e.g. [ ] Archive [ ] Active
-      2. e.g. [O] Archive [ ] Active
-      3. e.g. [ ] Archive [O] Active
-      4. e.g. [O] Archive [O] Active
+   2. Filter 기능은 Checkbox 버튼을 눌러서 선택할 수 있다. 기본은 All 이 선택되어있다. 아래 예시를 참고한다.
+
+      [O] All [ ] Archived [ ] Unarchived
+
+      [O] All [ ] Activated [ ] Inactivated
