@@ -21,3 +21,7 @@ jobs:
       - run: npm run format
 
       - run: npm run build
+
+      - run: npm run test:homework01
+
+      - run: npm run test:homework02

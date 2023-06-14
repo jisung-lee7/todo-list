@@ -17,6 +17,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:watch": "react-scripts test --watch",
+    "test:homework01": "react-scripts test src/__tests__/homework01.test.js",
+    "test:homework02": "react-scripts test src/__tests__/homework02.test.js",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
     "format": "prettier -c src/",
@@ -45,6 +47,7 @@
   },
   "devDependencies": {
     "eslint": "^8.39.0",
+    "msw": "^1.2.1",
     "prettier": "^2.8.8"
   }
 }
