@@ -8,7 +8,7 @@ import { setupServer } from 'msw/node'
 let todos = []
 const server = setupServer(
   rest.get('http://localhost:8080/api/todos', (req, res, ctx) => {
-    return res(ctx.delay(), ctx.json({ data: todos }))
+    return res(ctx.delay(), ctx.json(todos))
   }),
   rest.post('http://localhost:8080/api/todos', async (req, res, ctx) => {
     const body = await req.json()
@@ -23,12 +23,10 @@ const server = setupServer(
     return res(
       ctx.delay(),
       ctx.json({
-        data: {
-          id: req.id,
-          title: body.title,
-          archived: false,
-          completed: false
-        }
+        id: req.id,
+        title: body.title,
+        archived: false,
+        completed: false
       })
     )
   }),
@@ -41,24 +39,14 @@ const server = setupServer(
       todo.id === req.params.todoId ? newTodo : todo
     )
 
-    return res(
-      ctx.delay(),
-      ctx.json({
-        data: newTodo
-      })
-    )
+    return res(ctx.delay(), ctx.json(newTodo))
   }),
   rest.delete('http://localhost:8080/api/todos/:todoId', (req, res, ctx) => {
     const todo = todos.find((todo) => todo.id === req.params.todoId)
 
     todos = todos.filter((todo) => todo.id !== req.params.todoId)
 
-    return res(
-      ctx.delay(),
-      ctx.json({
-        data: todo
-      })
-    )
+    return res(ctx.delay(), ctx.json(todo))
   })
 )
 
