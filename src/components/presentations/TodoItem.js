@@ -6,15 +6,14 @@ function TodoItem({
   deleteTodo,
   editing,
   changeEditingStatus,
-  changeArchiveStatus,
-  changeActivateStatus,
+  toggleArchiveStatus,
+  toggleCompleteStatus,
   cancelTodo,
   confirmTodo,
   archived,
-  activated
+  completed
 }) {
   const [editingTodo, setEditingTodo] = useState('')
-
   useEffect(() => {
     if (!editing) {
       setEditingTodo(text)
@@ -22,7 +21,7 @@ function TodoItem({
   }, [editing, text])
 
   const handleArchive = () => {
-    changeArchiveStatus(id)
+    toggleArchiveStatus(id, archived)
   }
 
   const handleConfirm = () => {
@@ -37,8 +36,8 @@ function TodoItem({
     setEditingTodo(event.target.value)
   }
 
-  const handleChangeActivate = () => {
-    changeActivateStatus(id)
+  const handleComplete = () => {
+    toggleCompleteStatus(id, completed)
   }
 
   const handleKeyDown = (event) => {
@@ -70,12 +69,12 @@ function TodoItem({
         <>
           <input
             type="checkbox"
-            checked={activated}
-            onChange={handleChangeActivate}
+            checked={completed}
+            onChange={handleComplete}
           />
           <div
             style={{
-              textDecoration: activated ? 'line-through' : '',
+              textDecoration: completed ? 'line-through' : '',
               opacity: archived ? '0.3' : ''
             }}
           >

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { v1 as uuidv1 } from 'uuid'
 
 function TodoTop({ addTodo, editing }) {
   const [todo, setTodo] = useState('')
@@ -18,11 +17,7 @@ function TodoTop({ addTodo, editing }) {
       <button
         onClick={() => {
           addTodo({
-            id: uuidv1(),
-            text: todo,
-            editing: false,
-            archived: false,
-            activated: false
+            text: todo
           })
           setTodo('')
         }}

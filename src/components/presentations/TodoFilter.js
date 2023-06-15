@@ -1,14 +1,23 @@
 function TodoFilter({
   filterArchive,
   setFilterArchive,
-  filterActivate,
-  setFilterActivate
+  filterComplete,
+  setFilterComplete,
+  setSearchParams
 }) {
-  const handleChangeArchive = (event) => {
+  const handleArchive = (event) => {
     setFilterArchive(event.target.value)
+    setSearchParams((params) => {
+      params.set('filterArchiveStatus', event.target.value)
+      return params
+    })
   }
-  const handleChangeActivate = (event) => {
-    setFilterActivate(event.target.value)
+  const handleComplete = (event) => {
+    setFilterComplete(event.target.value)
+    setSearchParams((params) => {
+      params.set('filterCompleteStatus', event.target.value)
+      return params
+    })
   }
   return (
     <div>
@@ -19,7 +28,7 @@ function TodoFilter({
             name="filterArchive"
             value="all"
             checked={filterArchive === 'all'}
-            onChange={handleChangeArchive}
+            onChange={handleArchive}
           />
           all
         </label>
@@ -29,7 +38,7 @@ function TodoFilter({
             name="filterArchive"
             value="archived"
             checked={filterArchive === 'archived'}
-            onChange={handleChangeArchive}
+            onChange={handleArchive}
           />
           archived
         </label>
@@ -39,7 +48,7 @@ function TodoFilter({
             name="filterArchive"
             value="unarchived"
             checked={filterArchive === 'unarchived'}
-            onChange={handleChangeArchive}
+            onChange={handleArchive}
           />
           unarchived
         </label>
@@ -48,32 +57,32 @@ function TodoFilter({
         <label>
           <input
             type="radio"
-            name="filterActivate"
+            name="filterComplete"
             value="all"
-            checked={filterActivate === 'all'}
-            onChange={handleChangeActivate}
+            checked={filterComplete === 'all'}
+            onChange={handleComplete}
           />
           all
         </label>
         <label>
           <input
             type="radio"
-            name="filterActivate"
-            value="activated"
-            checked={filterActivate === 'activated'}
-            onChange={handleChangeActivate}
+            name="filterComplete"
+            value="completed"
+            checked={filterComplete === 'completed'}
+            onChange={handleComplete}
           />
-          activated
+          completed
         </label>
         <label>
           <input
             type="radio"
-            name="filterActivate"
-            value="inactivated"
-            checked={filterActivate === 'inactivated'}
-            onChange={handleChangeActivate}
+            name="filterComplete"
+            value="uncompleted"
+            checked={filterComplete === 'uncompleted'}
+            onChange={handleComplete}
           />
-          inactivated
+          uncompleted
         </label>
       </div>
     </div>
