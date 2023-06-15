@@ -17,8 +17,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:watch": "react-scripts test --watch",
-    "test:homework01": "react-scripts test src/__tests__/homework01.test.js",
-    "test:homework02": "react-scripts test src/__tests__/homework02.test.js",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
     "format": "prettier -c src/",
