@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
+    "env-cmd": "^10.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -13,10 +14,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "test:watch": "react-scripts test --watch",
+    "start": "env-cmd -f .env.local react-scripts start",
+    "build": "env-cmd -f .env react-scripts build",
+    "test": "env-cmd -f .env.local react-scripts test",
+    "test:watch": "env-cmd -f .env.local react-scripts test --watch",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
     "format": "prettier -c src/",
@@ -28,7 +29,7 @@
       "react-app/jest"
     ],
     "rules": {
-      "no-console": "error"
+      "no-console": "warn"
     }
   },
   "browserslist": {

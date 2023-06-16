@@ -7,10 +7,10 @@ import { setupServer } from 'msw/node'
 
 let todos = []
 const server = setupServer(
-  rest.get('http://localhost:8080/api/todos', (req, res, ctx) => {
+  rest.get(`${process.env.REACT_APP_BASEURL}/todos`, (req, res, ctx) => {
     return res(ctx.delay(), ctx.json(todos))
   }),
-  rest.post('http://localhost:8080/api/todos', async (req, res, ctx) => {
+  rest.post(`${process.env.REACT_APP_BASEURL}/todos`, async (req, res, ctx) => {
     const body = await req.json()
 
     todos.push({
@@ -30,24 +30,30 @@ const server = setupServer(
       })
     )
   }),
-  rest.put('http://localhost:8080/api/todos/:todoId', async (req, res, ctx) => {
-    const body = await req.json()
-    const todo = todos.find((todo) => todo.id === req.params.todoId)
-    const newTodo = { ...todo, ...body }
+  rest.put(
+    `${process.env.REACT_APP_BASEURL}/todos/:todoId`,
+    async (req, res, ctx) => {
+      const body = await req.json()
+      const todo = todos.find((todo) => todo.id === req.params.todoId)
+      const newTodo = { ...todo, ...body }
 
-    todos = todos.map((todo) =>
-      todo.id === req.params.todoId ? newTodo : todo
-    )
+      todos = todos.map((todo) =>
+        todo.id === req.params.todoId ? newTodo : todo
+      )
 
-    return res(ctx.delay(), ctx.json(newTodo))
-  }),
-  rest.delete('http://localhost:8080/api/todos/:todoId', (req, res, ctx) => {
-    const todo = todos.find((todo) => todo.id === req.params.todoId)
+      return res(ctx.delay(), ctx.json(newTodo))
+    }
+  ),
+  rest.delete(
+    `${process.env.REACT_APP_BASEURL}/todos/:todoId`,
+    (req, res, ctx) => {
+      const todo = todos.find((todo) => todo.id === req.params.todoId)
 
-    todos = todos.filter((todo) => todo.id !== req.params.todoId)
+      todos = todos.filter((todo) => todo.id !== req.params.todoId)
 
-    return res(ctx.delay(), ctx.json(todo))
-  })
+      return res(ctx.delay(), ctx.json(todo))
+    }
+  )
 )
 
 beforeAll(() => {

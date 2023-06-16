@@ -35,7 +35,7 @@ function Todo() {
     })
 
   const addTodo = (todo) => {
-    fetch(`http://localhost:8080/api/todos`, {
+    fetch(`${process.env.REACT_APP_BASEURL}/todos`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ function Todo() {
   }
 
   const deleteTodo = (id) => {
-    fetch(`http://localhost:8080/api/todos/${id}`, {
+    fetch(`${process.env.REACT_APP_BASEURL}/todos/${id}`, {
       method: 'DELETE'
     })
       .then((response) => response.json())
@@ -75,7 +75,7 @@ function Todo() {
   }
 
   const toggleArchiveStatus = (id, archived) => {
-    fetch(`http://localhost:8080/api/todos/${id}`, {
+    fetch(`${process.env.REACT_APP_BASEURL}/todos/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -89,7 +89,6 @@ function Todo() {
             if (todo.id === id) {
               return updatedTodo
             }
-
             return todo
           })
         )
@@ -97,7 +96,7 @@ function Todo() {
   }
 
   const toggleCompleteStatus = (id, completed) => {
-    fetch(`http://localhost:8080/api/todos/${id}`, {
+    fetch(`${process.env.REACT_APP_BASEURL}/todos/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -123,7 +122,7 @@ function Todo() {
   }
 
   const confirmTodo = (id, textItem) => {
-    fetch(`http://localhost:8080/api/todos/${id}`, {
+    fetch(`${process.env.REACT_APP_BASEURL}/todos/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -175,7 +174,7 @@ function Todo() {
   }, [searchParams, setSearchParams])
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/todos`)
+    fetch(`${process.env.REACT_APP_BASEURL}/todos`)
       .then((response) => response.json())
       .then((result) => {
         setTodos(result)
