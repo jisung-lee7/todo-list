@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 
 function TodoItem({
   id,
-  text,
+  title,
+  description,
   deleteTodo,
   editing,
   changeEditingStatus,
@@ -14,26 +15,31 @@ function TodoItem({
   completed
 }) {
   const [editingTodo, setEditingTodo] = useState('')
+  const [editingDescription, setEditingDescription] = useState('')
   useEffect(() => {
     if (!editing) {
-      setEditingTodo(text)
+      setEditingTodo(title)
+      setEditingDescription(description)
     }
-  }, [editing, text])
+  }, [editing, title, description])
 
   const handleArchive = () => {
     toggleArchiveStatus(id, archived)
   }
 
   const handleConfirm = () => {
-    confirmTodo(id, editingTodo)
+    confirmTodo(id, editingTodo, editingDescription)
   }
 
   const handleDelete = () => {
     deleteTodo(id)
   }
 
-  const handleChange = (event) => {
+  const handleTitleChange = (event) => {
     setEditingTodo(event.target.value)
+  }
+  const handleDescriptionChange = (event) => {
+    setEditingDescription(event.target.value)
   }
 
   const handleComplete = () => {
@@ -59,12 +65,20 @@ function TodoItem({
   return (
     <div style={{ display: 'flex', width: '100%' }}>
       {editing ? (
-        <input
-          type="text"
-          value={editingTodo}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-        />
+        <div>
+          <input
+            type="text"
+            value={editingTodo}
+            onChange={handleTitleChange}
+            onKeyDown={handleKeyDown}
+          />
+          <input
+            type="text"
+            value={editingDescription}
+            onChange={handleDescriptionChange}
+            onKeyDown={handleKeyDown}
+          />
+        </div>
       ) : (
         <>
           <input
@@ -78,7 +92,7 @@ function TodoItem({
               opacity: archived ? '0.3' : ''
             }}
           >
-            {text}
+            {title} - {description}
           </div>
         </>
       )}

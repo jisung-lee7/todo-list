@@ -9,7 +9,7 @@ export const useTodo = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ title: todo.text })
+      body: JSON.stringify({ title: todo.title, description: todo.description })
     })
       .then((response) => response.json())
       .then((result) => {
@@ -93,13 +93,16 @@ export const useTodo = () => {
     )
   }
 
-  const confirmTodo = (id, textItem) => {
+  const confirmTodo = (id, editingTodo, editingDescription) => {
     fetch(`${process.env.REACT_APP_BASEURL}/todos/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ title: textItem })
+      body: JSON.stringify({
+        title: editingTodo,
+        description: editingDescription
+      })
     })
       .then((response) => response.json())
       .then((updatedTodo) => {

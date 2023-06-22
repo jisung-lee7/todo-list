@@ -42,7 +42,8 @@ function Todo() {
         <TodoItem
           key={todo.id}
           id={todo.id}
-          text={todo.title}
+          title={todo.title}
+          description={todo.description}
           confirmTodo={confirmTodo}
           deleteTodo={deleteTodo}
           editing={todo.editing}
