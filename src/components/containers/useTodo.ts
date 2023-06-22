@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
+import { Todo } from '../../types/todo'
 
 export const useTodo = () => {
-  const [todos, setTodos] = useState([])
+  const [todos, setTodos] = useState<Todo[]>([])
 
-  const addTodo = (todo) => {
+  const addTodo = (title: string, description: string) => {
     fetch(`${process.env.REACT_APP_BASEURL}/todos`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ title: todo.title, description: todo.description })
+      body: JSON.stringify({ title: title, description: description })
     })
       .then((response) => response.json())
       .then((result) => {
@@ -17,7 +18,7 @@ export const useTodo = () => {
       })
   }
 
-  const deleteTodo = (id) => {
+  const deleteTodo = (id: number) => {
     fetch(`${process.env.REACT_APP_BASEURL}/todos/${id}`, {
       method: 'DELETE'
     })
@@ -27,7 +28,7 @@ export const useTodo = () => {
       })
   }
 
-  const changeEditingStatus = (id) => {
+  const changeEditingStatus = (id: number) => {
     setTodos((todos) =>
       todos.map((todo) => {
         if (todo.id === id) {
@@ -43,7 +44,7 @@ export const useTodo = () => {
     )
   }
 
-  const toggleArchiveStatus = (id, archived) => {
+  const toggleArchiveStatus = (id: number, archived: boolean) => {
     fetch(`${process.env.REACT_APP_BASEURL}/todos/${id}`, {
       method: 'PUT',
       headers: {
@@ -65,7 +66,7 @@ export const useTodo = () => {
       })
   }
 
-  const toggleCompleteStatus = (id, completed) => {
+  const toggleCompleteStatus = (id: number, completed: boolean) => {
     fetch(`${process.env.REACT_APP_BASEURL}/todos/${id}`, {
       method: 'PUT',
       headers: {
@@ -87,13 +88,17 @@ export const useTodo = () => {
       })
   }
 
-  const cancelTodo = (id) => {
+  const cancelTodo = (id: number) => {
     setTodos((todos) =>
       todos.map((todo) => (todo.id === id ? { ...todo, editing: false } : todo))
     )
   }
 
-  const confirmTodo = (id, editingTodo, editingDescription) => {
+  const confirmTodo = (
+    id: number,
+    editingTodo: string,
+    editingDescription: string
+  ) => {
     fetch(`${process.env.REACT_APP_BASEURL}/todos/${id}`, {
       method: 'PUT',
       headers: {

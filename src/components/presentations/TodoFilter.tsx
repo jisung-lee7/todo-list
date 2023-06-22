@@ -1,24 +1,40 @@
-function TodoFilter({
+import { ChangeEvent, Dispatch, FC } from 'react'
+import { SetURLSearchParams } from 'react-router-dom'
+import { ArchiveTypes, CompleteTypes } from '../../constants/todo-filter'
+
+interface TodoFilterProps {
+  filterArchive: ArchiveTypes
+  setFilterArchive: Dispatch<React.SetStateAction<ArchiveTypes>>
+  filterComplete: CompleteTypes
+  setFilterComplete: Dispatch<React.SetStateAction<CompleteTypes>>
+  setSearchParams: SetURLSearchParams
+}
+
+export const TodoFilter: FC<TodoFilterProps> = ({
   filterArchive,
   setFilterArchive,
   filterComplete,
   setFilterComplete,
   setSearchParams
-}) {
-  const handleArchive = (event) => {
-    setFilterArchive(event.target.value)
+}) => {
+  const handleArchive = (event: ChangeEvent<HTMLInputElement>) => {
+    setFilterArchive(event.target.value as ArchiveTypes)
     setSearchParams((params) => {
       params.set('filterArchiveStatus', event.target.value)
+
       return params
     })
   }
-  const handleComplete = (event) => {
-    setFilterComplete(event.target.value)
+
+  const handleComplete = (event: ChangeEvent<HTMLInputElement>) => {
+    setFilterComplete(event.target.value as CompleteTypes)
     setSearchParams((params) => {
       params.set('filterCompleteStatus', event.target.value)
+
       return params
     })
   }
+
   return (
     <div>
       <div style={{ display: 'flex', width: '100%' }}>
@@ -53,6 +69,7 @@ function TodoFilter({
           unarchived
         </label>
       </div>
+
       <div style={{ display: 'flex', width: '100%' }}>
         <label>
           <input
@@ -88,5 +105,3 @@ function TodoFilter({
     </div>
   )
 }
-
-export default TodoFilter

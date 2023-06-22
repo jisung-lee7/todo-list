@@ -1,6 +1,25 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, FC, ChangeEvent, KeyboardEvent } from 'react'
 
-function TodoItem({
+interface TodoItemProps {
+  id: number
+  title: string
+  description: string
+  deleteTodo: (id: number) => void
+  editing: boolean
+  changeEditingStatus: (id: number) => void
+  toggleArchiveStatus: (id: number, archived: boolean) => void
+  toggleCompleteStatus: (id: number, completed: boolean) => void
+  cancelTodo: (id: number) => void
+  confirmTodo: (
+    id: number,
+    editingTodo: string,
+    editingDescription: string
+  ) => void
+  archived: boolean
+  completed: boolean
+}
+
+export const TodoItem: FC<TodoItemProps> = ({
   id,
   title,
   description,
@@ -13,15 +32,9 @@ function TodoItem({
   confirmTodo,
   archived,
   completed
-}) {
-  const [editingTodo, setEditingTodo] = useState('')
-  const [editingDescription, setEditingDescription] = useState('')
-  useEffect(() => {
-    if (!editing) {
-      setEditingTodo(title)
-      setEditingDescription(description)
-    }
-  }, [editing, title, description])
+}) => {
+  const [editingTodo, setEditingTodo] = useState<string>('')
+  const [editingDescription, setEditingDescription] = useState<string>('')
 
   const handleArchive = () => {
     toggleArchiveStatus(id, archived)
@@ -35,10 +48,11 @@ function TodoItem({
     deleteTodo(id)
   }
 
-  const handleTitleChange = (event) => {
+  const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEditingTodo(event.target.value)
   }
-  const handleDescriptionChange = (event) => {
+
+  const handleDescriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEditingDescription(event.target.value)
   }
 
@@ -46,7 +60,7 @@ function TodoItem({
     toggleCompleteStatus(id, completed)
   }
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     const key = event.code
     switch (key) {
       case 'Enter':
@@ -61,6 +75,13 @@ function TodoItem({
       default:
     }
   }
+
+  useEffect(() => {
+    if (!editing) {
+      setEditingTodo(title)
+      setEditingDescription(description)
+    }
+  }, [editing, title, description])
 
   return (
     <div style={{ display: 'flex', width: '100%' }}>
@@ -118,5 +139,3 @@ function TodoItem({
     </div>
   )
 }
-
-export default TodoItem

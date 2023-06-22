@@ -1,6 +1,6 @@
-import TodoItem from '../presentations/TodoItem'
-import TodoTop from '../presentations/TodoTop'
-import TodoFilter from '../presentations/TodoFilter'
+import { TodoItem } from '../presentations/TodoItem'
+import { TodoTop } from '../presentations/TodoTop'
+import { TodoFilter } from '../presentations/TodoFilter'
 import { useTodo } from '../containers/useTodo'
 import { useTodoFilter } from '../containers/useTodoFilter'
 
@@ -16,7 +16,6 @@ function Todo() {
     confirmTodo
   } = useTodo()
   const {
-    searchParams,
     filterArchive,
     filterComplete,
     editing,
@@ -34,7 +33,6 @@ function Todo() {
         setFilterArchive={setFilterArchive}
         filterComplete={filterComplete}
         setFilterComplete={setFilterComplete}
-        searchParams={searchParams}
         setSearchParams={setSearchParams}
       />
 
