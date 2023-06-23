@@ -1,31 +1,20 @@
 import { useEffect, useState } from 'react'
+import { todoHttpReqHandler } from '../../http-handlers/todo'
 import { Todo } from '../../types/todo'
 
 export const useTodo = () => {
   const [todos, setTodos] = useState<Todo[]>([])
 
   const addTodo = (title: string, description: string) => {
-    fetch(`${process.env.REACT_APP_BASEURL}/todos`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ title: title, description: description })
+    todoHttpReqHandler.add(title, description).then((todo) => {
+      setTodos([...todos, todo])
     })
-      .then((response) => response.json())
-      .then((result) => {
-        setTodos([...todos, result])
-      })
   }
 
   const deleteTodo = (id: number) => {
-    fetch(`${process.env.REACT_APP_BASEURL}/todos/${id}`, {
-      method: 'DELETE'
+    todoHttpReqHandler.delete(id).then(() => {
+      setTodos((prev) => prev.filter((todo) => todo.id !== id))
     })
-      .then((response) => response.json())
-      .then(() => {
-        setTodos((prev) => prev.filter((todo) => todo.id !== id))
-      })
   }
 
   const changeEditingStatus = (id: number) => {
@@ -45,47 +34,29 @@ export const useTodo = () => {
   }
 
   const toggleArchiveStatus = (id: number, archived: boolean) => {
-    fetch(`${process.env.REACT_APP_BASEURL}/todos/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ archived: !archived })
+    todoHttpReqHandler.update(id, { archived }).then((updateTodo) => {
+      setTodos((todos) =>
+        todos.map((todo) => {
+          if (todo.id === id) {
+            return updateTodo
+          }
+          return todo
+        })
+      )
     })
-      .then((response) => response.json())
-      .then((updatedTodo) => {
-        setTodos((todos) =>
-          todos.map((todo) => {
-            if (todo.id === id) {
-              return updatedTodo
-            }
-
-            return todo
-          })
-        )
-      })
   }
 
   const toggleCompleteStatus = (id: number, completed: boolean) => {
-    fetch(`${process.env.REACT_APP_BASEURL}/todos/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ completed: !completed })
+    todoHttpReqHandler.update(id, { completed }).then((updateTodo) => {
+      setTodos((todos) =>
+        todos.map((todo) => {
+          if (todo.id === id) {
+            return updateTodo
+          }
+          return todo
+        })
+      )
     })
-      .then((response) => response.json())
-      .then((updatedTodo) => {
-        setTodos((todos) =>
-          todos.map((todo) => {
-            if (todo.id === id) {
-              return updatedTodo
-            }
-
-            return todo
-          })
-        )
-      })
   }
 
   const cancelTodo = (id: number) => {
@@ -99,17 +70,8 @@ export const useTodo = () => {
     editingTodo: string,
     editingDescription: string
   ) => {
-    fetch(`${process.env.REACT_APP_BASEURL}/todos/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        title: editingTodo,
-        description: editingDescription
-      })
-    })
-      .then((response) => response.json())
+    todoHttpReqHandler
+      .update(id, { title: editingTodo, description: editingDescription })
       .then((updatedTodo) => {
         setTodos((todos) =>
           todos.map((todo) => {
@@ -124,11 +86,9 @@ export const useTodo = () => {
   }
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BASEURL}/todos`)
-      .then((response) => response.json())
-      .then((result) => {
-        setTodos(result)
-      })
+    todoHttpReqHandler.getAll().then((result) => {
+      setTodos(result)
+    })
   }, [])
 
   return {
