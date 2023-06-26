@@ -34,29 +34,33 @@ export const useTodo = () => {
   }
 
   const toggleArchiveStatus = (id: number, archived: boolean) => {
-    todoHttpReqHandler.update(id, { archived }).then((updateTodo) => {
-      setTodos((todos) =>
-        todos.map((todo) => {
-          if (todo.id === id) {
-            return updateTodo
-          }
-          return todo
-        })
-      )
-    })
+    todoHttpReqHandler
+      .update(id, { archived: !archived })
+      .then((updateTodo) => {
+        setTodos((todos) =>
+          todos.map((todo) => {
+            if (todo.id === id) {
+              return updateTodo
+            }
+            return todo
+          })
+        )
+      })
   }
 
   const toggleCompleteStatus = (id: number, completed: boolean) => {
-    todoHttpReqHandler.update(id, { completed }).then((updateTodo) => {
-      setTodos((todos) =>
-        todos.map((todo) => {
-          if (todo.id === id) {
-            return updateTodo
-          }
-          return todo
-        })
-      )
-    })
+    todoHttpReqHandler
+      .update(id, { completed: !completed })
+      .then((updateTodo) => {
+        setTodos((todos) =>
+          todos.map((todo) => {
+            if (todo.id === id) {
+              return updateTodo
+            }
+            return todo
+          })
+        )
+      })
   }
 
   const cancelTodo = (id: number) => {

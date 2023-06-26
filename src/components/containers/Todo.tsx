@@ -4,7 +4,7 @@ import { TodoFilter } from '../presentations/TodoFilter'
 import { useTodo } from '../containers/useTodo'
 import { useTodoFilter } from '../containers/useTodoFilter'
 
-function Todo() {
+export const Todo = () => {
   const {
     todos,
     addTodo,
@@ -56,5 +56,3 @@ function Todo() {
     </div>
   )
 }
-
-export default Todo

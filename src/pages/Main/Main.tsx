@@ -1,4 +1,4 @@
-import Todo from '../../components/containers/Todo'
+import { Todo } from '../../components/containers/Todo'
 
 function Main() {
   return (
