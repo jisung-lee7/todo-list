@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { ArchiveTypes, CompleteTypes } from '../../constants/todo-filter'
-
 import { Todo } from '../../types/todo'
 
 export const useTodoFilter = (todos: Todo[]) => {
@@ -12,7 +11,6 @@ export const useTodoFilter = (todos: Todo[]) => {
   const [filterComplete, setFilterComplete] = useState<CompleteTypes>(
     CompleteTypes.ALL
   )
-  const editing = todos.some((todo) => todo.editing === true)
   const filterTodos = todos
     .filter((todo) => {
       if (filterArchive === ArchiveTypes.ARCHIVED) {
@@ -71,7 +69,6 @@ export const useTodoFilter = (todos: Todo[]) => {
   return {
     filterArchive,
     filterComplete,
-    editing,
     filterTodos,
     setFilterArchive,
     setFilterComplete,

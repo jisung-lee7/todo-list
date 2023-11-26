@@ -1,4 +1,4 @@
-import { useState, useEffect, FC, ChangeEvent, KeyboardEvent } from 'react'
+import { useEffect, FC, ChangeEvent, KeyboardEvent, Dispatch } from 'react'
 import { modalTypes } from '../../constants/modal'
 
 interface TodoItemProps {
@@ -6,6 +6,10 @@ interface TodoItemProps {
   title: string
   description: string
   editing: boolean
+  editingTodo: string
+  setEditingTodo: Dispatch<React.SetStateAction<string>>
+  editingDescription: string
+  setEditingDescription: Dispatch<React.SetStateAction<string>>
   changeEditingStatus: (id: number) => void
   toggleCompleteStatus: (id: number, completed: boolean) => void
   cancelTodo: (id: number) => void
@@ -24,16 +28,21 @@ export const TodoItem: FC<TodoItemProps> = ({
   title,
   description,
   editing,
-  changeEditingStatus,
-  toggleCompleteStatus,
+  editingTodo,
+  setEditingTodo,
+  editingDescription,
+  setEditingDescription,
   cancelTodo,
   confirmTodo,
+  changeEditingStatus,
+  toggleCompleteStatus,
   archived,
   completed,
   openModal
 }) => {
-  const [editingTodo, setEditingTodo] = useState<string>('')
-  const [editingDescription, setEditingDescription] = useState<string>('')
+  const handleComplete = () => {
+    toggleCompleteStatus(id, completed)
+  }
 
   const handleArchive = () => {
     if (!archived) {
@@ -57,10 +66,6 @@ export const TodoItem: FC<TodoItemProps> = ({
 
   const handleDescriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEditingDescription(event.target.value)
-  }
-
-  const handleComplete = () => {
-    toggleCompleteStatus(id, completed)
   }
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -88,57 +93,27 @@ export const TodoItem: FC<TodoItemProps> = ({
 
   return (
     <div style={{ display: 'flex', width: '100%' }}>
-      {editing ? (
-        <div>
-          <input
-            type="text"
-            value={editingTodo}
-            onChange={handleTitleChange}
-            onKeyDown={handleKeyDown}
-          />
-          <input
-            type="text"
-            value={editingDescription}
-            onChange={handleDescriptionChange}
-            onKeyDown={handleKeyDown}
-          />
+      <>
+        <input type="checkbox" checked={completed} onChange={handleComplete} />
+        <div
+          style={{
+            textDecoration: completed ? 'line-through' : '',
+            opacity: archived ? '0.3' : ''
+          }}
+        >
+          {title} - {description}
         </div>
-      ) : (
-        <>
-          <input
-            type="checkbox"
-            checked={completed}
-            onChange={handleComplete}
-          />
-          <div
-            style={{
-              textDecoration: completed ? 'line-through' : '',
-              opacity: archived ? '0.3' : ''
-            }}
-          >
-            {title} - {description}
-          </div>
-        </>
-      )}
+      </>
 
-      {!archived && !editing && (
+      {!archived && (
         <button onClick={() => changeEditingStatus(id)}>edit</button>
       )}
 
-      {!editing && (
-        <button onClick={handleArchive}>
-          {!archived ? 'archive' : 'unarchive'}
-        </button>
-      )}
+      <button onClick={handleArchive}>
+        {!archived ? 'archive' : 'unarchive'}
+      </button>
 
       {archived && <button onClick={handleDelete}>delete</button>}
-
-      {editing && (
-        <>
-          <button onClick={handleConfirm}>confirm</button>
-          <button onClick={() => cancelTodo(id)}>cancel</button>
-        </>
-      )}
     </div>
   )
 }

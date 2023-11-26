@@ -16,14 +16,19 @@ export const Todo: FC = () => {
     confirmTodo,
     confirmModalCallback,
     cancelModalCallback,
+    editing,
+    editingTodo,
+    setEditingTodo,
+    editingDescription,
+    setEditingDescription,
     modalData,
     openModal,
     isModalOpen
   } = useTodo()
+
   const {
     filterArchive,
     filterComplete,
-    editing,
     filterTodos,
     setFilterArchive,
     setFilterComplete,
@@ -46,9 +51,13 @@ export const Todo: FC = () => {
           id={todo.id}
           title={todo.title}
           description={todo.description}
-          confirmTodo={confirmTodo}
           editing={todo.editing}
+          editingTodo={editingTodo}
+          setEditingTodo={setEditingTodo}
+          editingDescription={editingDescription}
+          setEditingDescription={setEditingDescription}
           cancelTodo={cancelTodo}
+          confirmTodo={confirmTodo}
           changeEditingStatus={changeEditingStatus}
           toggleCompleteStatus={toggleCompleteStatus}
           archived={todo.archived}
@@ -56,12 +65,40 @@ export const Todo: FC = () => {
           openModal={openModal}
         />
       ))}
-
       {modalData && (
         <Modal
           isOpen={isModalOpen}
-          title={modalData?.title}
-          body={modalData?.body}
+          title={modalData.title}
+          body={
+            editing ? (
+              <>
+                <p>{modalData.body}</p>
+                <label>
+                  title
+                  <input
+                    type="text"
+                    value={editingTodo}
+                    onChange={(event) => {
+                      setEditingTodo(event.target.value)
+                    }}
+                  />
+                </label>
+
+                <label>
+                  description
+                  <input
+                    type="text"
+                    value={editingDescription}
+                    onChange={(event) =>
+                      setEditingDescription(event.target.value)
+                    }
+                  />
+                </label>
+              </>
+            ) : (
+              <p>{modalData.body}</p>
+            )
+          }
           confirmModalCallback={confirmModalCallback}
           cancelModalCallback={cancelModalCallback}
         />
